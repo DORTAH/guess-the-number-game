@@ -1,0 +1,13 @@
+{
+  "name": "node_01",
+  "version": "0.1.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "startDevServ": "node ./src/server.js",
+    "startDevCli": "node ./src/client.js"
+  }
+}
