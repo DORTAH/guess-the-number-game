@@ -12,8 +12,8 @@ const guessedNumber = getRandomNumber(minNumber, maxNumber)
 const client = net.createConnection({ port:3000 })
 
 client.on('connect', () => {
-    const NumberMessige = {range: `${minNumber}-${maxNumber}`}
-    client.write(JSON.stringify(NumberMessige))
+    const NumberMessage = {range: `${minNumber}-${maxNumber}`}
+    client.write(JSON.stringify(NumberMessage))
 })
 
 // client.on('data', (data) => {
@@ -30,7 +30,8 @@ client.on('data', (data) => {
     const {answer} = JSON.parse(data.toString())
     console.log(answer)
     if (answer === guessedNumber) {
-        client.write(`You win number is ${guessedNumber}`)
+        const winMessage = { message: `You win number is ${guessedNumber}`}
+        client.write(JSON.stringify(winMessage))
         client.destroy()
     } else {
         const hint = answer < guessedNumber ? 'more' : 'less'

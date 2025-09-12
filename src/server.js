@@ -4,7 +4,7 @@ import getRandomNumber from "./lib/randomNumber.js";
 function createServer(filePath) {
 
     const server = net.createServer(connection => {
-        console.log(`${connection.remoteAddress} conected`)
+        console.log(`${connection.remoteAddress} connected`)
 
         const state = {
             minNumber: null,
@@ -14,7 +14,7 @@ function createServer(filePath) {
 
         connection.on('data', (data) => {
             const clientMessage = JSON.parse(data.toString())
-            console.log(clientMessage)
+            // console.log(clientMessage)
 
             // console.log(JSON.parse(data.toString()))
             // console.log(clientMessage.range)
@@ -43,12 +43,14 @@ function createServer(filePath) {
                     state.LastGuess = getRandomNumber(state.minNumber, state.LastGuess- 1)
                     const answerMessage = {answer: state.LastGuess}
                     connection.write(JSON.stringify(answerMessage))
-                }
+                } 
+            } else if (clientMessage.message){
+                console.log(clientMessage.message)
             }
         })
          
         connection.on('close', () => {
-        console.log(`${connection.remoteAddress} disconected`)
+        console.log(`${connection.remoteAddress} disconnected`)
          })
     })
 
